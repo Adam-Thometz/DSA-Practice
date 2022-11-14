@@ -13,13 +13,38 @@
   And you put xdescribe instead of describe if you want to suspend running the unit tests.  
 */
 
+// Time: O(n^2)
+// Space: O(1)
+// Destructive
+// Stable
+// Good for mostly sorted arrays
+
+/*
+  For each index of the array starting at idx 1 (i)
+    For each index starting from i, going toward idx 1 (j)
+      If nums at idx j is less than the idx before, swap the numbers
+*/
+
+//                  i
+//           j
+// [2, 3, 5, 6, 8, 10, 4, 7, 9, 1]
+
 function insertionSort(nums) {
-  // code goes here
+  const swap = (currIdx, prevIdx) =>
+    [nums[currIdx], nums[prevIdx]] = [nums[prevIdx], nums[currIdx]];
+
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = i; j >= 1; j--) {
+      if (nums[j] < nums[j-1]) swap(j, j-1);
+    }
+  }
+
+  return nums;
 }
 
 // unit tests
 // do not modify the below code
-test.skip("insertion sort", function () {
+test("insertion sort", function () {
   const nums = [10, 5, 3, 8, 2, 6, 4, 7, 9, 1];
   insertionSort(nums);
   expect(nums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
