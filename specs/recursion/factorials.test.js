@@ -10,11 +10,18 @@
   factorial(3) = 6 
 */
 
-function factorial(n) {}
+/*
+  BASE CASE: if n is 1, return 1
+  NORMAL CASE: return n times factorial of n-1
+*/
+function factorial(n) {
+  if (n < 2) return 1;
+  return n * factorial(n-1);
+}
 
 // unit tests
 // do not modify the below code
-test.skip("factorials", () => {
+test("factorials", () => {
   expect(factorial(1)).toEqual(1);
   expect(factorial(2)).toEqual(2);
   expect(factorial(3)).toEqual(6);

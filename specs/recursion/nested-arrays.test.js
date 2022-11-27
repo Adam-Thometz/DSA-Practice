@@ -9,11 +9,23 @@
  
  */
 
+/*
+  Set sum to 0
+  For each element in array
+    BASE CASE: If element is an array, call nestedArr on array and add result to sum
+    Else add element to sum
+  Return sum
+*/
+
 function nestedAdd(array) {
-  // write code here
+  let sum = 0
+  for (let el of array) {
+    Array.isArray(el) ? sum += nestedAdd(el) : sum += el;
+  }
+  return sum;
 }
 
-test.skip("nested arrays addition", () => {
+test("nested arrays addition", () => {
   expect(nestedAdd([1, 2, 3])).toEqual(6);
   expect(nestedAdd([1, [2], 3])).toEqual(6);
   expect(nestedAdd([[[[[[[[[5]]]]]]]]])).toEqual(5);

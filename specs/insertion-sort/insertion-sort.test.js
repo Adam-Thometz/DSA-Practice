@@ -25,10 +25,6 @@
       If nums at idx j is less than the idx before, swap the numbers
 */
 
-//                  i
-//           j
-// [2, 3, 5, 6, 8, 10, 4, 7, 9, 1]
-
 function insertionSort(nums) {
   const swap = (currIdx, prevIdx) =>
     [nums[currIdx], nums[prevIdx]] = [nums[prevIdx], nums[currIdx]];

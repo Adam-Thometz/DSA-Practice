@@ -9,13 +9,47 @@
 
 */
 
+
+
+function getDigit(number, place, largestPlace) {
+  const string = number.toString();
+  const mod = largestPlace - string.length;
+  return string[place - mod] || 0;
+}
+
+// get the length of the longest number
+function getLargestPlace(nums) {
+  return Math.max(...nums).toString().length;
+}
+
 function radixSort(array) {
-  // code goes here
+  // find largest place
+  const largestPlace = getLargestPlace(array);
+  // create how many buckets you need, an array of 10 arrays
+  const buckets = new Array(10).fill().map(() => []);
+  // for loop for how many iterations you need to do, based on largest place
+  for (let i = largestPlace - 1; i >= 0; i--) {
+    // while loop
+    while (array.length) {
+      // enqueue the numbers into buckets
+      const current = array.shift();
+      buckets[getDigit(current, i, largestPlace)].push(current);
+    }
+
+    // for each bucket
+    for (let bucket of buckets) {
+      // dequeue all results
+      while (bucket.length) {
+        array.push(bucket.shift());
+      }
+    }
+  }
+  return array;
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function () {
   it("should sort correctly", () => {
     const nums = [
       20,

@@ -45,10 +45,9 @@ class LinkedList {
   _find(index) {
     if (index >= this.length) return null;
     let current = this.head;
-    for (let i = 0; i < index; i++) {
+    for (let i = 0; i <= index - 1; i++) {
       current = current.next;
     }
-
     return current;
   }
   get(index) {
