@@ -35,6 +35,17 @@ class ArrayList {
     this.length--;
     return val;
   }
+  unshift(val) {
+    // add an item to the beginning of an array
+    this._expandFrom(0);
+    this.data[0] = val;
+  }
+  shift() {
+    // remove the first item in an array and returns it
+    const val = this.data[0];
+    this._collapseTo(0);
+    return val;
+  }
   get(idx) {
     // returns the item at the index
     return this.data[idx];
@@ -51,6 +62,12 @@ class ArrayList {
     }
     delete this.data[this.length-1];
     this.length--;
+  }
+  _expandFrom(idx) {
+    for (let i = this.length-1; i >= idx; i--) {
+      this.data[i] = this.data[i+1];
+    }
+    this.length++;
   }
 }
 
@@ -82,6 +99,23 @@ describe("ArrayList", function () {
     range(10).map(() => list.pop());
     expect(list.length).toEqual(3);
     expect(list.pop()).toEqual("c");
+  });
+
+  test("unshift", () => {
+    list.unshift('first');
+    expect(list.get(0)).toBe('first');
+    expect(list.length).toBe(1);
+    list.unshift('second');
+    expect(list.get(0)).toBe('second');
+    expect(list.length).toBe(2);
+  });
+
+  test("shift", () => {
+    abcRange(5).map((character) => list.push(character));
+    expect(list.length).toEqual(5);
+    range(3).map(() => list.shift());
+    expect(list.length).toEqual(2);
+    expect(list.shift()).toEqual("d");
   });
 
   test("get", () => {
